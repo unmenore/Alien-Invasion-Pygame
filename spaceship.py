@@ -17,7 +17,7 @@ class Spaceship():
 
         #Каждый новый корабль появляется у нижнего края экрана
         self.rect.centerx = self.screen_rect.centerx
-        self.rect.bottom = self.screen_rect.bottom
+        self.rect.bottom= self.screen_rect.bottom
 
         #Сохранение координаты корабля
         self.center = float(self.rect.centerx)
