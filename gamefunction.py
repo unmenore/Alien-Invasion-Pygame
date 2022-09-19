@@ -1,10 +1,11 @@
 import sys
-from zoneinfo import available_timezones
 import pygame
 
 from bullet import Bullet
 from alien import Alien
 
+
+#Нажатие клавиш
 def check_keydown_event(event,ai_setting, screen,ship,bullets):
         if event.key == pygame.K_RIGHT:
             ship.moving_right = True
@@ -33,7 +34,21 @@ def check_events(ai_setting, screen,ship,bullets):
         elif event.type == pygame.KEYUP:
             check_keyup_event(event,ship)
 
- #Создание новой пули и добавление в группу
+#Снижение флота и смена направления
+def check_fleet_edges(ai_setting,aliens):
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_setting,aliens)
+            break
+
+def change_fleet_direction(ai_setting, aliens):
+    for alien in aliens.sprites():
+        alien.rect.y += ai_setting.fleet_drop_speed
+    ai_setting.fleet_direction *= -1
+
+
+
+#Создание новой пули и добавление в группу
 def fire_bullet(ai_setting, screen,ship,bullets):
     if len(bullets) < ai_setting.bullet_allowed:
         new_bullet = Bullet(ai_setting, screen, ship)
@@ -46,6 +61,7 @@ def bullet_update(bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+#Заполнение экрана пришельцами
 def get_number_aliens_x(ai_setting, alien_width):
     available_space_x = ai_setting.screen_width - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
@@ -53,7 +69,7 @@ def get_number_aliens_x(ai_setting, alien_width):
 
 def get_number_rows(ai_setting, ship_height, alien_height):
     #Определение рядов помещающихся на экран
-    available_space_y = (ai_setting.screen_height - (2* alien_height - ship_height))
+    available_space_y = (ai_setting.screen_height - (3 * alien_height - ship_height))
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
 
@@ -76,6 +92,15 @@ def create_fleet(ai_setting, screen, ship, aliens):
         for alien_number in range(number_aliens_x):
             create_alien(ai_setting,screen,aliens, alien_number,row_number)
 
+
+def update_aliens(ai_setting, aliens):
+    #Проверяет, достиг ли флот края экрана, после чего обновляет позиции всех пришельцев во флоте.
+    check_fleet_edges(ai_setting, aliens)
+    #Обновляет позиции всех во флоте
+    aliens.update()
+
+
+#Обновление экрана
 def update_screen(ai_setting, screen, ship, aliens, bullets):
     #Перерисовка экрана при каждом проходе цикла
     screen.fill(ai_setting.bg_color)

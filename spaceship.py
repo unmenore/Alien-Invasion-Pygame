@@ -11,7 +11,7 @@ class Spaceship():
         self.moving_left = False
 
         #Download spaceship.png in project
-        self.image = pygame.image.load('npc/spaceship2.png')
+        self.image = pygame.image.load('npc/ufo.png')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 

@@ -25,10 +25,10 @@ def run_game():
 
     #Запуск основного цикла игры
     while True:
-        
         #Control
         gf.check_events(ai_setting, screen, ship, bullets)
         ship.update()
         gf.bullet_update(bullets)
+        gf.update_aliens(ai_setting, aliens)
         gf.update_screen(ai_setting, screen, ship, aliens, bullets)
 run_game()
