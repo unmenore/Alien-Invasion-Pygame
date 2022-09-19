@@ -9,9 +9,7 @@ def check_keydown_event(event,ai_setting, screen,ship,bullets):
         elif event.key== pygame.K_LEFT:
             ship.moving_left = True
         elif event.key == pygame.K_q:
-            #Создание новой пули и добавление в группу
-            new_bullet = Bullet(ai_setting, screen, ship)
-            bullets.add(new_bullet)
+            fire_bullet(ai_setting, screen,ship,bullets)
 
 def check_keyup_event(event,ship):
         if event.key == pygame.K_RIGHT:
@@ -30,6 +28,18 @@ def check_events(ai_setting, screen,ship,bullets):
         elif event.type == pygame.KEYUP:
             check_keyup_event(event,ship)
 
+ #Создание новой пули и добавление в группу
+def fire_bullet(ai_setting, screen,ship,bullets):
+    if len(bullets) < ai_setting.bullet_allowed:
+        new_bullet = Bullet(ai_setting, screen, ship)
+        bullets.add(new_bullet)    
+
+def bullet_update(bullets):
+    bullets.update()
+    #Bullet delete
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
 
 def update_screen(ai_setting, screen, ship, bullets):
     #Перерисовка экрана при каждом проходе цикла
@@ -41,4 +51,6 @@ def update_screen(ai_setting, screen, ship, bullets):
 
         #Отображение последнего прорисованного экрана
     pygame.display.flip()
+
+
 

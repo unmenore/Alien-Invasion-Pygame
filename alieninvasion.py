@@ -1,4 +1,3 @@
-from email.headerregistry import Group
 import pygame
 from bullet import Bullet
 import gamefunction as gf
@@ -26,6 +25,6 @@ def run_game():
         #Control
         gf.check_events(ai_setting, screen, ship, bullets)
         ship.update()
-        bullets.update()
+        gf.bullet_update(bullets)
         gf.update_screen(ai_setting, screen, ship, bullets)
 run_game()
