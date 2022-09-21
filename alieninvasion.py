@@ -6,6 +6,7 @@ from settings import Setting
 from spaceship import Spaceship
 from pygame.sprite import Group
 from alien import Alien
+from gamestats import GameStats
 
 
 def run_game():
@@ -20,6 +21,7 @@ def run_game():
     ship = Spaceship(ai_setting,screen)
     bullets = Group()
     aliens = Group()
+    stats = GameStats(ai_setting)
 
     gf.create_fleet(ai_setting, screen, ship, aliens)
 
@@ -28,7 +30,7 @@ def run_game():
         #Control
         gf.check_events(ai_setting, screen, ship, bullets)
         ship.update()
-        gf.bullet_update(bullets)
-        gf.update_aliens(ai_setting, aliens)
+        gf.bullet_update(ai_setting, screen, ship, bullets, aliens)
+        gf.update_aliens(ai_setting, stats, screen, ship, aliens, bullets)
         gf.update_screen(ai_setting, screen, ship, aliens, bullets)
 run_game()

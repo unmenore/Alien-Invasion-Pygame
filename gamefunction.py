@@ -3,6 +3,7 @@ import pygame
 
 from bullet import Bullet
 from alien import Alien
+from time import sleep
 
 
 #Нажатие клавиш
@@ -54,12 +55,22 @@ def fire_bullet(ai_setting, screen,ship,bullets):
         new_bullet = Bullet(ai_setting, screen, ship)
         bullets.add(new_bullet)    
 
-def bullet_update(bullets):
+def bullet_update(ai_setting, screen, ship, bullets, aliens):
     bullets.update()
     #Bullet delete
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    check_bullet_alien_collision(ai_setting, bullets, screen, ship, aliens)
+
+def check_bullet_alien_collision(ai_setting, bullets, screen, ship, aliens):
+    #УДаение пришельцев при колизии
+    colision = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if len(aliens) == 0:
+        #УНичтожеие существующих пуль и создание нового флота
+        bullets.empty()
+        create_fleet(ai_setting, screen,ship,aliens)
 
 #Заполнение экрана пришельцами
 def get_number_aliens_x(ai_setting, alien_width):
@@ -93,12 +104,27 @@ def create_fleet(ai_setting, screen, ship, aliens):
             create_alien(ai_setting,screen,aliens, alien_number,row_number)
 
 
-def update_aliens(ai_setting, aliens):
+def update_aliens(ai_setting, stats, screen, ship, aliens, bullets):
     #Проверяет, достиг ли флот края экрана, после чего обновляет позиции всех пришельцев во флоте.
     check_fleet_edges(ai_setting, aliens)
     #Обновляет позиции всех во флоте
     aliens.update()
 
+    #ПРоверка колицизий "Пришелец-кораьбль"
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_setting, stats, screen, ship, aliens, bullets)
+
+#Столковение корабля с пришельцами
+def ship_hit(ai_setting, stats, screen, ship, aliens, bullets):
+    stats.ships_left -= 1
+    #ОЧеистка пришельцев и пуль
+    aliens.empty()
+    bullets.empty()
+    #Создание нового флота
+    create_fleet(ai_setting, screen, ship, aliens)
+    ship.center_ship()
+    #Пауза
+    sleep(0.5)
 
 #Обновление экрана
 def update_screen(ai_setting, screen, ship, aliens, bullets):
