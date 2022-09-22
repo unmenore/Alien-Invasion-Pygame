@@ -7,6 +7,7 @@ from spaceship import Spaceship
 from pygame.sprite import Group
 from alien import Alien
 from gamestats import GameStats
+from button import Button
 
 
 def run_game():
@@ -16,6 +17,9 @@ def run_game():
     ai_setting = Setting()
     screen = pygame.display.set_mode((ai_setting.screen_height, ai_setting.screen_width))
     pygame.display.set_caption("Alien Invasion")
+
+    #Create Play-button
+    play_button = Button(ai_setting, screen, "Start game")
 
     #Create ship
     ship = Spaceship(ai_setting,screen)
@@ -28,10 +32,10 @@ def run_game():
     #Запуск основного цикла игры
     while True:
         #Control
-        gf.check_events(ai_setting, screen, ship, bullets)
+        gf.check_events(ai_setting, screen,ship, bullets, stats, play_button, aliens)
         if stats.game_active:
             ship.update()
             gf.bullet_update(ai_setting, screen, ship, bullets, aliens)
             gf.update_aliens(ai_setting, stats, screen, ship, aliens, bullets)
-        gf.update_screen(ai_setting, screen, ship, aliens, bullets)
+        gf.update_screen(ai_setting, stats, screen, ship, aliens, bullets, play_button)
 run_game()
