@@ -12,9 +12,10 @@ class Setting():
 
         #Bullet setting
         self.bullet_speed_factor = 1
+        self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (230,230,230)
-        self.bullet_allowed = 10
+        self.bullet_allowed = 5
 
         #Alien setting
         self.fleet_drop_speed = 10
@@ -28,7 +29,6 @@ class Setting():
 
     def initialize_dynamic_setting(self):
         self.ship_speed_factor = 1.5
-        self.bullet_width = 500
         self.alien_speed_factor = 0.3
 
         #fleet_direction = 1 обозначает движение вправо, -1 влево
@@ -43,4 +43,3 @@ class Setting():
         self.alien_speed_factor *= self.speed_scale
 
         self.alien_points = int(self.alien_points * self.score_scale)
-        print(self.alien_points)
