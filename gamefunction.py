@@ -49,6 +49,8 @@ def check_play_button(ai_setting, stats, screen, ship, aliens, bullets, play_but
         start_game(ai_setting, stats, screen, ship, aliens, bullets)
 
 def start_game(ai_setting, stats, screen, ship, aliens, bullets):
+
+        ai_setting.initialize_dynamic_setting()
            #Скрытие указателя мыши
         pygame.mouse.set_visible(False)
         #Сброс игровой статистики
@@ -98,6 +100,7 @@ def check_bullet_alien_collision(ai_setting, bullets, screen, ship, aliens):
     if len(aliens) == 0:
         #УНичтожеие существующих пуль и создание нового флота
         bullets.empty()
+        ai_setting.increase_speed()
         create_fleet(ai_setting, screen,ship,aliens)
 
 #Заполнение экрана пришельцами

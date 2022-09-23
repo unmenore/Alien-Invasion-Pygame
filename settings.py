@@ -8,19 +8,31 @@ class Setting():
         self.bg_color = (0, 0, 0)
 
         #ship speed
-        self.ship_speed = 1.5
         self.ship_limit = 3
 
         #Bullet setting
         self.bullet_speed_factor = 1
-        self.bullet_width = 300
         self.bullet_height = 15
         self.bullet_color = (230,230,230)
         self.bullet_allowed = 10
 
         #Alien setting
-        self.alien_speed_factor = 0.3
         self.fleet_drop_speed = 10
+
+        #Темп укорения игры
+        self.speed_scale = 1.1
+        self.initialize_dynamic_setting()
+
+
+    def initialize_dynamic_setting(self):
+        self.ship_speed_factor = 1.5
+        self.bullet_width = 300
+        self.alien_speed_factor = 0.3
+
         #fleet_direction = 1 обозначает движение вправо, -1 влево
         self.fleet_direction = 1
-    
+
+    def increase_speed(self):
+        self.ship_speed_factor *= self.speed_scale
+        self.bullet_width *= self.speed_scale
+        self.alien_speed_factor *= self.speed_scale

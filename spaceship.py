@@ -26,9 +26,9 @@ class Spaceship():
     def update(self):
         #Обновление атрибута center, не rect
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.center += self.ai_setting.ship_speed
+            self.center += self.ai_setting.ship_speed_factor
         if self.moving_left and self.rect.left > 0:
-            self.center -= self.ai_setting.ship_speed
+            self.center -= self.ai_setting.ship_speed_factor
 
         #Обновление атрибута rect на основании self.center
         self.rect.centerx = self.center
