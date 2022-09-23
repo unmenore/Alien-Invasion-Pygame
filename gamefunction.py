@@ -172,7 +172,7 @@ def ship_hit(ai_setting, stats, screen, ship, aliens, bullets):
         stats.game_active = False
 
 #Обновление экрана
-def update_screen(ai_setting, stats, screen, ship, aliens, bullets, play_button):
+def update_screen(ai_setting, stats, screen, sb, ship, aliens, bullets, play_button):
     #Перерисовка экрана при каждом проходе цикла
     screen.fill(ai_setting.bg_color)
     #Все пули выводятся позади изображение окрабля и пришельцев
@@ -180,6 +180,9 @@ def update_screen(ai_setting, stats, screen, ship, aliens, bullets, play_button)
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+
+    #Вывод счета
+    sb.show_score()
 
     if not stats.game_active:
         play_button.draw_button()
