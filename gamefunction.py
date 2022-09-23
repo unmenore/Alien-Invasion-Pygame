@@ -85,19 +85,24 @@ def fire_bullet(ai_setting, screen,ship,bullets):
         new_bullet = Bullet(ai_setting, screen, ship)
         bullets.add(new_bullet)    
 
-def bullet_update(ai_setting, screen, ship, bullets, aliens):
+def bullet_update(ai_setting, stats, screen, sb ,ship, aliens, bullets):
     bullets.update()
     #Bullet delete
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
-    check_bullet_alien_collision(ai_setting, bullets, screen, ship, aliens)
+    check_bullet_alien_collision(ai_setting, stats, screen, sb ,ship, aliens, bullets)
 
-def check_bullet_alien_collision(ai_setting, bullets, screen, ship, aliens):
+def check_bullet_alien_collision(ai_setting, stats, screen, sb ,ship, aliens, bullets):
     #УДаение пришельцев при колизии
-    colision = pygame.sprite.groupcollide(bullets, aliens, True, True)
-    if len(aliens) == 0:
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += ai_setting.alien_points * len(aliens)
+        sb.prep_score()
+        # sb.check_high_score()
+    if not aliens:
         #УНичтожеие существующих пуль и создание нового флота
         bullets.empty()
         ai_setting.increase_speed()
