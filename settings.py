@@ -1,3 +1,4 @@
+#setting for game
 class Setting():
     
     def __init__(self) -> None:

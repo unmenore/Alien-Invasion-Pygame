@@ -1,3 +1,4 @@
+#Game stats what use in game
 class GameStats():
 
     def __init__(self, ai_setting) -> None:

@@ -1,3 +1,4 @@
+#allien parametrs
 import pygame
 
 from pygame.sprite import Sprite

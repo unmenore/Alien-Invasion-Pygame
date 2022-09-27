@@ -1,3 +1,4 @@
+#Main file, if need stats game, open this file in VScode or another IDE and press F5
 import pygame
 from bullet import Bullet
 import gamefunction as gf

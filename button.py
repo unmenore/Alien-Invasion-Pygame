@@ -1,3 +1,4 @@
+#All bottom control
 import pygame.font
 
 class Button():

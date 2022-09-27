@@ -1,3 +1,4 @@
+# all score, health and game record bar
 import pygame.font
 from pygame.sprite import Group
 from spaceship import Spaceship

@@ -1,3 +1,4 @@
+#all setting for spaceship
 import pygame
 from pygame.sprite import Sprite
 
