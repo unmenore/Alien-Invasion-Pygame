@@ -5,6 +5,7 @@ class GameStats():
         self.reset_stats()
         #Игра запускается в активном состояении
         self.game_active = False
+        self.game_record = 0
 
     def reset_stats(self):
         self.ships_left = self.ai_setting.ship_limit

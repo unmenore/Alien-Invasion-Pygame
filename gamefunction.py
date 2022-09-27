@@ -78,6 +78,12 @@ def change_fleet_direction(ai_setting, aliens):
     ai_setting.fleet_direction *= -1
 
 
+def check_game_record(stats, sb):
+    if stats.score > stats.game_record:
+        stats.game_record = stats.score
+        sb.prep_game_record()
+
+
 
 #Создание новой пули и добавление в группу
 def fire_bullet(ai_setting, screen,ship,bullets):
@@ -101,6 +107,7 @@ def check_bullet_alien_collision(ai_setting, stats, screen, sb ,ship, aliens, bu
         for aliens in collisions.values():
             stats.score += ai_setting.alien_points * len(aliens)
         sb.prep_score()
+        check_game_record(stats, sb)
         # sb.check_high_score()
     if not aliens:
         #УНичтожеие существующих пуль и создание нового флота
