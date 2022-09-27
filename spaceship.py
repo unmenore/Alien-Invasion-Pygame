@@ -1,8 +1,10 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Spaceship():
+class Spaceship(Sprite):
     
     def __init__(self, ai_setting,screen) -> None:
+        super(Spaceship,self).__init__()
         #Инициализируем корабль и задаем стартовую позицию
         self.screen = screen
         self.ai_setting = ai_setting

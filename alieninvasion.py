@@ -34,10 +34,10 @@ def run_game():
     #Запуск основного цикла игры
     while True:
         #Control
-        gf.check_events(ai_setting, screen,ship, bullets, stats, play_button, aliens)
+        gf.check_events(ai_setting, screen,ship, bullets, stats, play_button, aliens, sb)
         if stats.game_active:
             ship.update()
             gf.bullet_update(ai_setting, stats, screen, sb ,ship, aliens, bullets)
-            gf.update_aliens(ai_setting, stats, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_setting, stats, screen, ship, aliens, bullets, sb)
         gf.update_screen(ai_setting, stats, screen, sb ,ship, aliens, bullets, play_button)
 run_game()
